@@ -3,6 +3,7 @@ import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 import styled from "styled-components/native";
 
+import open from "../../../../assets/open";
 import star from "../../../../assets/star";
 
 const RestaurantCard = styled(Card)`
@@ -19,8 +20,13 @@ const Info = styled.View`
     gap: ${(props) => props.theme.space.sm};
 `;
 
+const Rating = styled.View`
+    flex-direction: row;
+`;
+
 const Row = styled.View`
     flex-direction: row;
+    justify-content: space-between;
 `;
 
 const Title = styled(Text)`
@@ -56,9 +62,12 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
             <Info>
                 <Title>{name}</Title>
                 <Row>
-                    {ratingArray.map(() => (
-                        <SvgXml xml={star} width={20} height={20} />
-                    ))}
+                    <Rating>
+                        {ratingArray.map(() => (
+                            <SvgXml xml={star} width={20} height={20} />
+                        ))}
+                    </Rating>
+                    {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
                 </Row>
                 <Address>{address}</Address>
             </Info>
