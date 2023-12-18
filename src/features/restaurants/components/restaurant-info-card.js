@@ -16,7 +16,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     } = restaurant;
 
     return (
-        <Card style={styles.card} elevation={5}>
+        <Card style={styles.card}>
             <Card.Cover
                 key={name}
                 style={styles.cover}
