@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Image, Text } from "react-native";
 import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 import styled from "styled-components/native";
@@ -43,14 +43,14 @@ const Address = styled(Text)`
 const RestaurantInfoCard = ({ restaurant = {} }) => {
     const {
         name = "Some Restaurant",
-        icon,
+        icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
         photos = [
             "https://media.istockphoto.com/id/1365312463/de/foto/modernes-cafe-restaurant-interieur-mit-gelbem-stuhl-gegen-fenster-mit-stadtblick.jpg?s=1024x1024&w=is&k=20&c=CW3l992sf0SxmlFroFhpqTp9csUDCFZOyTdhTF2xX5A=",
         ],
         address = "100 some random street",
         isOpenNow = true,
         rating = 4.5,
-        isClosedTemporarily = false,
+        isClosedTemporarily = true,
         placeId = "1f4d3s2a",
     } = restaurant;
 
@@ -67,7 +67,17 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
                             <SvgXml xml={star} width={20} height={20} />
                         ))}
                     </Rating>
+                    <>
+                        {isClosedTemporarily && (
+                            <Text variant="label" style={{ color: "red" }}>
+                                CLOSED TEMPORARILY
+                            </Text>
+                        )}
+                    </>
                     {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+                    <>
+                        <Image width={15} height={15} source={{ uri: icon }} />
+                    </>
                 </Row>
                 <Address>{address}</Address>
             </Info>
