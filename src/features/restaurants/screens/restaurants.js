@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import styled from "styled-components/native";
 import { SafeArea } from "../../../components/utils/SafeArea";
+import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import RestaurantInfoCard from "../components/restaurant-info-card";
 
 const SearchContainer = styled.View`
@@ -15,20 +17,18 @@ const RestaurantList = styled(FlatList).attrs({
 })``;
 
 const RestaurantsScreen = () => {
+    const { restaurants, isLoading, error } = useContext(RestaurantsContext);
+
     return (
         <SafeArea>
             <SearchContainer>
                 <Searchbar placeholder="Search" />
             </SearchContainer>
             <RestaurantList
-                data={[
-                    { name: 1 },
-                    { name: 2 },
-                    { name: 3 },
-                    { name: 4 },
-                    { name: 5 },
-                ]}
-                renderItem={() => <RestaurantInfoCard />}
+                data={restaurants}
+                renderItem={({ item }) => (
+                    <RestaurantInfoCard restaurant={item} />
+                )}
                 keyExtractor={(item) => item.name}
             />
         </SafeArea>

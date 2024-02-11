@@ -7,6 +7,7 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components/native";
 import RestaurantsScreen from "./src/features/restaurants/screens/restaurants";
 import { theme } from "./src/infrastructure/theme";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,19 +46,24 @@ export default function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <NavigationContainer>
-                    <Tab.Navigator screenOptions={createScreenOptions}>
-                        <Tab.Screen
-                            name="Restaurants"
-                            component={RestaurantsScreen}
-                        />
-                        <Tab.Screen name="Map" component={RestaurantsScreen} />
-                        <Tab.Screen
-                            name="Settings"
-                            component={RestaurantsScreen}
-                        />
-                    </Tab.Navigator>
-                </NavigationContainer>
+                <RestaurantsContextProvider>
+                    <NavigationContainer>
+                        <Tab.Navigator screenOptions={createScreenOptions}>
+                            <Tab.Screen
+                                name="Restaurants"
+                                component={RestaurantsScreen}
+                            />
+                            <Tab.Screen
+                                name="Map"
+                                component={RestaurantsScreen}
+                            />
+                            <Tab.Screen
+                                name="Settings"
+                                component={RestaurantsScreen}
+                            />
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </RestaurantsContextProvider>
             </ThemeProvider>
             <ExpoStatusBar style="auto" />
         </>
