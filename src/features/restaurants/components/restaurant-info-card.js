@@ -1,44 +1,19 @@
-import { Image, Text } from "react-native";
-import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
-import styled from "styled-components/native";
+
+import Text from "../../../components/typography/Text";
+
+import {
+    Address,
+    Icon,
+    Info,
+    Rating,
+    RestaurantCard,
+    RestaurantCardCover,
+    Row,
+} from "./restaurant-info-card.styles";
 
 import open from "../../../../assets/open";
 import star from "../../../../assets/star";
-
-const RestaurantCard = styled(Card)`
-    background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-    padding: ${(props) => props.theme.space.md};
-    background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Info = styled.View`
-    padding: ${(props) => props.theme.space.md};
-    gap: ${(props) => props.theme.space.sm};
-`;
-
-const Rating = styled.View`
-    flex-direction: row;
-`;
-
-const Row = styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-`;
-
-const Title = styled(Text)`
-    font-family: ${(props) => props.theme.fonts.heading};
-    font-size: ${(props) => props.theme.fontSizes.body};
-    color: ${(props) => props.theme.colors.ui.primary};
-`;
-
-const Address = styled(Text)`
-    font-family: ${(props) => props.theme.fonts.body};
-    font-size: ${(props) => props.theme.fontSizes.caption};
-`;
 
 const RestaurantInfoCard = ({ restaurant = {} }) => {
     const {
@@ -60,7 +35,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
         <RestaurantCard>
             <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
             <Info>
-                <Title>{name}</Title>
+                <Text variant="label">{name}</Text>
                 <Row>
                     <Rating>
                         {ratingArray.map(() => (
@@ -69,14 +44,12 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
                     </Rating>
                     <>
                         {isClosedTemporarily && (
-                            <Text variant="label" style={{ color: "red" }}>
-                                CLOSED TEMPORARILY
-                            </Text>
+                            <Text variant="error">CLOSED TEMPORARILY</Text>
                         )}
                     </>
                     {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
                     <>
-                        <Image width={15} height={15} source={{ uri: icon }} />
+                        <Icon source={{ uri: icon }} />
                     </>
                 </Row>
                 <Address>{address}</Address>
