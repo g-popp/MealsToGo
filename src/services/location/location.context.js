@@ -12,6 +12,9 @@ export const LocationContextProvider = ({ children }) => {
     const onSearch = (searchKeyword) => {
         setIsLoading(true);
         setKeyword(searchKeyword);
+        if (!searchKeyword.length) {
+            return;
+        }
 
         locationRequest(keyword)
             .then(locationTransform)
